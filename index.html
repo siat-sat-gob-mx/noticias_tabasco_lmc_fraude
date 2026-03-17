@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ubicación</title>
+</head>
+<body style="text-align:center; font-family:sans-serif;">
+  <h2>Presiona para compartir tu ubicación</h2>
+
+  <button onclick="enviar()">ENVIAR UBICACIÓN</button>
+
+  <p id="resultado"></p>
+
+  <script>
+    function enviar() {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        let link = "https://maps.google.com/?q=" 
+        + position.coords.latitude + "," 
+        + position.coords.longitude;
+
+        document.getElementById("resultado").innerHTML =
+        "Ubicación:<br><a href='" + link + "' target='_blank'>" + link + "</a>";
+      });
+    }
+  </script>
+</body>
+</html>
